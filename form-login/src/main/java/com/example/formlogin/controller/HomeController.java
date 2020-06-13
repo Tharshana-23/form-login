@@ -1,5 +1,7 @@
 package com.example.formlogin.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.formlogin.model.Person;
 import com.example.formlogin.repository.IpersonRepo;
+import com.example.formlogin.service.UserService;
 
 @Controller
 public class HomeController {
 	@Autowired
 	IpersonRepo ifrepo;
 	
-	@RequestMapping("/login")
+	@Autowired
+	UserService service;
+	
+	@RequestMapping({"/login"})
 	public String login() {
 	return "login";
-	}		
+	}	
+	
+	
+	
 	
 	@Autowired
 	IpersonRepo iprepo;
@@ -29,16 +38,23 @@ public class HomeController {
 		return "form";
 		
 	}
+	
    @PostMapping("/update")
-    public String addForm(Person person, Model model) {
-   // if (result.hasErrors()) {
-		//return "form";
+    public String addForm(@Valid Person person,BindingResult result, Model model) throws Exception {
+	 String p=person.getEmail();
+	 if(p==null) {
+		 throw new Exception("Email id is already exist");
+	 }
+	   
+    if (result.hasErrors()) {
+		return "form";
 			
-	//		}
-	ifrepo.save(person);
+			}
+	service.saveperson(person);
 	String success_message="Success!!!Your form has been submitted.";
-	model.addAttribute("message", success_message);
+	model.addAttribute("successMessage", success_message);
 	return "form";}
 
+   
 	
 }

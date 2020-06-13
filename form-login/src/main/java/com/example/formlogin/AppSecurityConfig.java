@@ -45,32 +45,28 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
-			http
 			
-			.authorizeRequests()
-			.antMatchers("/superadmin").hasAnyAuthority("SUPERADMIN")
-			.antMatchers("/admin").hasAnyAuthority("ADMIN","SUPERADMIN")
-			.antMatchers("/login").permitAll()
-			.antMatchers("/form").permitAll()
-			.antMatchers("/update").permitAll()
-			.anyRequest().authenticated()
-			.and()
-			.csrf()
-			.disable()
+			http.
 			
-			
-			
-			
-			.formLogin().loginPage("/login")
-			
-			.defaultSuccessUrl("/admin")
-			.usernameParameter("username")
-			.passwordParameter("password")
-			.and()
-			.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-			
-			
+            authorizeRequests()
+            .antMatchers("/static/**").permitAll()
+            .antMatchers("/css/**").permitAll()
+            .antMatchers("/js/**").permitAll()
+            .antMatchers("/img/**").permitAll()
+            .antMatchers("/assets/**").permitAll()
+            .antMatchers("/update").permitAll()
+            .antMatchers("/login").permitAll()
+            .antMatchers("/form").permitAll()
+            .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+            .authenticated().and().csrf().disable().formLogin()
+            .loginPage("/login").failureUrl("/login?error=true")
+            .defaultSuccessUrl("/admin/home")
+            .usernameParameter("username")
+            .passwordParameter("password")
+            .and().logout()
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/home").and().exceptionHandling()
+            .accessDeniedPage("/access-denied");
 			
 			
 

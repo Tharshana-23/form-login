@@ -36,19 +36,57 @@
 <div id="right">
 <form action="#" th:action="@{/update}" th:object="${person}" method="post">
 <div class="form-row">
-             
+              <div class="col-md-4 mb-3">
+                <label for="name">First name</label>
+                <input type="text" class="form-control" th:field="*{name}" id="name"  >
+                <div style="margin-top: 10px" class="alert alert-danger"
+							role="alert" th:if="${#fields.hasErrors('name')}"
+							th:errors="*{name}"></div>
+        
+              </div>
+              <br>
+              <div class="col-md-4 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" th:field="*{lastName}"  id="lastName" value="${person.lastName}" >
+                <div style="margin-top: 10px" class="alert alert-danger"
+							role="alert" th:if="${#fields.hasErrors('lastName')}"
+							th:errors="*{lastName}"></div>
+              </div>
+            </div>
+              <br>
+              <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" th:field="*{email}" id="email" value="${person.email}" >
+                <div style="margin-top: 10px" class="alert alert-danger"
+							role="alert" th:if="${#fields.hasErrors('email')}"
+							th:errors="*{email}"></div>
+              </div>
+            
+            <br>
+            
+              
             </div>
              <div class="form-row">
             <div class="col-md-4 mb-3">
             <label for="username">User Name</label>
                 <input type="text" class="form-control" th:field="*{username}" id="username" >
+                <div style="margin-top: 10px" class="alert alert-danger"
+							role="alert" th:if="${#fields.hasErrors('username')}"
+							th:errors="*{username}"></div>
             </div>
             
             <div class="col-md-4 mb-3">
             <label for="password">Password</label>
                 <input type="password" class="form-control" th:field="*{password}" id="password" >
+                <div style="margin-top: 10px" class="alert alert-danger"
+							role="alert" th:if="${#fields.hasErrors('password')}"
+							th:errors="*{password}"></div>
             </div>
+            </div> 
             
+              
+              
               
             
             
@@ -61,10 +99,10 @@
             <a th:href="@{/view}"><button class="btn btn-info">view</button></a>
             <a th:href="@{/login}"><button class="btn btn-info">Login</button></a>
 
-<div th:if="${message}"> 
+<div th:if="${successMessage}"> 
 <div class="alert alert-danger" role="alert">
   <h4 class="alert-heading"></h4>
-  <h4 th:text="${message}"></h4>
+  <h4 th:text="${successMessage}"></h4>
   
 
 </div>
