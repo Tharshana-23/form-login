@@ -53,7 +53,7 @@ public class HomeController {
 	service.saveperson(person);
 	String success_message="Success!!!Your form has been submitted.";
 	model.addAttribute("successMessage", success_message);
-	return "form";}
+	return "/form";}
 
    
 	

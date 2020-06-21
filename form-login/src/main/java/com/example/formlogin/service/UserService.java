@@ -28,7 +28,7 @@ public class UserService {
 	
 	public Person saveperson(Person person) {
 		person.setPassword(bCryptPasswordEncoder.encode(person.getPassword()));
-		
+		person.setRoles(Arrays.asList(new Role("user")));
 	
 		person.setActive(true);
 		return personRepo.save(person);

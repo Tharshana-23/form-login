@@ -1,5 +1,6 @@
 package com.example.formlogin.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +18,15 @@ import javax.persistence.Table;
 public class Role {
 	
 
+	
+		
+	
+	public Role( String role) {
+		
+		
+		this.role = role;
+		
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -24,13 +34,13 @@ public class Role {
 	private String role;
 	
 	@ManyToMany(mappedBy="roles",fetch=FetchType.EAGER)
-	private Set<Person> persons=new HashSet<>();
+	private Collection<Person> persons;
 	
 	
-	public Set<Person> getPersons() {
+	public Collection<Person> getPersons() {
 		return persons;
 	}
-	public void setPersons(Set<Person> persons) {
+	public void setPersons(Collection<Person> persons) {
 		this.persons = persons;
 	}
 	public int getId() {

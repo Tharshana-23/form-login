@@ -35,7 +35,7 @@ public class MyUserdetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<Role>roles=person.getRoles();
+		Collection<Role>roles=person.getRoles();
 		List<SimpleGrantedAuthority>authorities =new ArrayList<>();
 		
 		for(Role role:roles) {
